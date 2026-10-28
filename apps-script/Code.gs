@@ -7,6 +7,7 @@ const HEADERS = [
 const STATUSES = ["new", "confirmed", "prepaid", "done", "cancelled"];
 const CAKE_TYPES = ["CUSTOM"].concat(Array.from({length: 20}, (_, i) => "C-" + String(i + 1).padStart(2, "0")));
 const MAX_TEXT_LENGTH = 200;
+const FILLINGS = ["vanilla_berry", "chocolate", "honey_cake", "carrot", "pistachio_raspberry", "mango_passionfruit"];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -82,6 +83,8 @@ function validatePayload(body) {
   const email = String(body.email || "").trim();
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "invalid_email";
   if (CAKE_TYPES.indexOf(String(body.cake_type)) === -1) return "invalid_cake_type";
+  if (body.filling && FILLINGS.indexOf(String(body.filling)) === -1) return "invalid_filling";
+  if (String(body.inscription || "").length > 30) return "inscription_too_long";
 
   const weight = Number(body.weight_kg);
   if (!isFinite(weight) || weight < 1.5 || weight > 10 || Math.round(weight * 2) !== weight * 2) return "invalid_weight";
