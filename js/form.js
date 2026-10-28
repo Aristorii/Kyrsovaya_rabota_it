@@ -1,5 +1,5 @@
 /* После публикации Apps Script вставьте URL веб-приложения в кавычки ниже. */
-window.SAHARNY_APPS_SCRIPT_URL = window.SAHARNY_APPS_SCRIPT_URL || '';
+window.SAHARNY_APPS_SCRIPT_URL = window.SAHARNY_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbyosSaMd9P4TRRsEy0N9hYWObOW7clBZXP5B4gy0sJQlsbHvgSg0Hz_jSeZP7Ij-Ocjmw/exec';
 (function () {
   'use strict';
   const form = document.querySelector('[data-lead-form]');
