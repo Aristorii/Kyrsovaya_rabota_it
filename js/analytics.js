@@ -4,7 +4,7 @@ window.saharnyUTM = {};
 (function () {
   'use strict';
   const GA_ID = window.SAHARNY_GA_ID;
-  if (GA_ID && GA_ID !== 'G-5FS35RKVFQ') {
+  if (GA_ID) {
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
@@ -42,7 +42,7 @@ window.saharnyUTM = {};
       } else if (typeof value === 'number' && Number.isFinite(value)) safeParams[key] = value;
       else safeParams[key] = String(value).slice(0, 100);
     });
-    if (typeof window.gtag === 'function' && GA_ID !== 'G-5FS35RKVFQ') window.gtag('event', name, safeParams);
+    if (typeof window.gtag === 'function' && GA_ID) window.gtag('event', name, safeParams);
     console.info('[GA4 event]', name, safeParams);
   };
 
