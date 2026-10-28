@@ -98,7 +98,9 @@ window.SAHARNY_APPS_SCRIPT_URL = window.SAHARNY_APPS_SCRIPT_URL || '';
       const result = await response.json();
       if (!result || result.ok !== true) {
         const error = (result && result.error) ? String(result.error) : 'server_rejected';
-        window.trackEvent?.('form_error', { field_name: 'server', error_type: 'server' });
+        const errorField = error.includes('phone') ? 'phone' : error.includes('email') ? 'email' : error.includes('weight') || error.includes('two_tiers') ? 'weight_kg' : error.includes('event_date') ? 'event_date' : error.includes('cake_type') ? 'cake_type' : error.includes('consent') ? 'consent' : error.includes('name') ? 'name' : 'server';
+        if (errorField !== 'server') setError(errorField, error === 'event_date_too_soon' ? 'Дата должна быть не раньше чем через 3 дня.' : 'Сервер отклонил это поле. Проверьте значение.');
+        window.trackEvent?.('form_error', { field_name: errorField, error_type: 'server' });
         setStatus('Заявка не принята. ' + (error === 'event_date_too_soon' ? 'Выберите дату не раньше чем через 3 дня.' : 'Проверьте данные или попробуйте позже.'), 'error');
         if (submitButton) { submitButton.disabled = false; submitButton.textContent = buttonText; }
         return;
